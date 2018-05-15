@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using System;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Jobs;
 
@@ -7,10 +8,10 @@ namespace Shoooooo
     /// <summary>
     /// 
     /// </summary>
-    public sealed class BulletUpdater : IJobParallelForTransform
+    struct BulletUpdater : IJobParallelForTransform, IDisposable
     {
-        private readonly NativeArray<Vector2> velocities;
-
+        private NativeArray<Vector2> velocities;
+        
         public BulletUpdater(Vector2[] velocities)
         {
             this.velocities = new NativeArray<Vector2>(velocities, Allocator.TempJob);
@@ -23,6 +24,11 @@ namespace Shoooooo
             position.x += velocity.x;
             position.y += velocity.y;
             transform.localPosition = position;
+        }
+
+        public void Dispose()
+        {
+            velocities.Dispose();
         }
     }
 }

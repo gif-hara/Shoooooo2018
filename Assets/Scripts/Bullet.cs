@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Shoooooo.ObjectPools;
+using UnityEngine;
 
 namespace Shoooooo
 {
@@ -9,31 +10,31 @@ namespace Shoooooo
     {
         private static readonly Vector2 Range = new Vector2(56, 100);
 
-        public Vector2 Velocity { get; private set; }
-
         private Transform cachedTransform;
+
+        private ObjectPool<Bullet> pool;
 
         void Awake()
         {
             this.cachedTransform = this.transform;
         }
 
-        public void Initialize(Vector2 velocity)
+        public void Initialize(ObjectPool<Bullet> pool)
         {
-            this.Velocity = velocity;
+            this.pool = pool;
         }
 
-        public void UpdatePosition()
+        public void ReturnToPool()
+        {
+            this.pool.Return(this);
+        }
+
+        public void UpdatePosition(Vector2 velocity)
         {
             var position = this.cachedTransform.localPosition;
-            position.x += this.Velocity.x;
-            position.y += this.Velocity.y;
+            position.x += velocity.x;
+            position.y += velocity.y;
             this.cachedTransform.localPosition = position;
-        }
-
-        public void Destroy()
-        {
-            Destroy(this.gameObject);
         }
 
         public bool CanDestroy

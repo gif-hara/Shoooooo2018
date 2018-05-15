@@ -28,6 +28,7 @@ namespace Shoooooo
         {
             this.cachedTransform = this.transform;
             Observable.IntervalFrame(this.interval)
+                .Where(_ => this.isActiveAndEnabled)
                 .SubscribeWithState(this, (_, _this) =>
                 {
                     _this.CreateBullet();
@@ -38,7 +39,7 @@ namespace Shoooooo
 
         private void CreateBullet()
         {
-            BulletManager.Instance.CreateBullet(this.bulletPrefab).Initialize(this.cachedTransform.right * this.bulletSpeed);
+            BulletManager.Instance.CreateBulletElement(this.bulletPrefab, this.cachedTransform.position, this.cachedTransform.right * this.bulletSpeed);
         }
     }
 }
