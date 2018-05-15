@@ -35,6 +35,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4877272813458744}
+  - component: {fileID: 114161001208571446}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -50,7 +51,7 @@ Transform:
   m_GameObject: {fileID: 1488107307175962}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 16, y: 16, z: 1}
   m_Children: []
   m_Father: {fileID: 4877272813458744}
   m_RootOrder: 0
@@ -69,6 +70,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114161001208571446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1770278345828846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83470b787a9e40beb88cd2fc659123c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212230010388878340
 SpriteRenderer:
   m_ObjectHideFlags: 1
