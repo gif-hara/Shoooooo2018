@@ -28,21 +28,23 @@ namespace Shoooooo
 
         private static readonly List<Bullet> bullets = new List<Bullet>();
 
-        private Predicate<Bullet> destroyBulletPredicate;
+        private static readonly Predicate<Bullet> DestroyBulletPredicate = b =>
+        {
+            if (b.CanDestroy)
+            {
+                b.Destroy();
+                return true;
+            }
+
+            return false;
+        };
+
+        private Transform cachedTransform;
 
         void Awake()
         {
             instance = this;
-            this.destroyBulletPredicate = b =>
-            {
-                if (b.CanDestroy)
-                {
-                    b.Destroy();
-                    return true;
-                }
-                
-                return false;
-            };
+            this.cachedTransform = this.transform;
             Application.targetFrameRate = 60;
         }
 
@@ -66,7 +68,7 @@ namespace Shoooooo
                 bullet.UpdatePosition();
             }
 
-            bullets.RemoveAll(this.destroyBulletPredicate);
+            bullets.RemoveAll(DestroyBulletPredicate);
         }
 
         private void UpdateJobSystem()
@@ -76,7 +78,7 @@ namespace Shoooooo
 
         public Bullet CreateBullet(Bullet prefab)
         {
-            var bullet = Instantiate(prefab);
+            var bullet = Instantiate(prefab, this.cachedTransform);
             bullets.Add(bullet);
 
             return bullet;
